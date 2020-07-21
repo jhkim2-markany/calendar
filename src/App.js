@@ -3,8 +3,10 @@ import events from './events';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
 import moment from 'moment'
 import _ from 'lodash'
-// import * as dates from './utils/dates'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 
 
 class App extends React.Component {
@@ -38,6 +40,8 @@ class App extends React.Component {
       <>
         <h1>일정관리</h1>
         <Calendar
+          style={{ height: 800 ,width: '100%' }}
+          popup
           selectable
           localizer={localizer}
           events={this.state.events}
@@ -52,34 +56,5 @@ class App extends React.Component {
     )
   }
 }
-
-
-
-/*
-let allViews = Object.keys(Views).map(k => Views[k])
-
-const ColoredDateCellWrapper = ({ children }) =>
-  React.cloneElement(React.Children.only(children), {
-    style: {
-      backgroundColor: 'lightblue',
-    },
-  })
-
-const App = props => (
-  <div>
-    <Calendar
-    events={events}
-    views={allViews}
-    step={60}
-    startAccessor="start"
-    endAccessor="end"
-    components={{
-      timeSlotWrapper: ColoredDateCellWrapper,
-    }}
-    localizer={localizer}
-  />
-  </div>
-)*/
-
 
 export default App;
