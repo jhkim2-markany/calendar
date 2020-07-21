@@ -2,11 +2,14 @@ import React from 'react';
 import events from './events';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
 import moment from 'moment'
+import 'moment/locale/ko'
 import _ from 'lodash'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
+
+moment.locale("ko")
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
@@ -50,7 +53,6 @@ class App extends React.Component {
     const { draggedEvent } = this.state
 
     const event = {
-      id: draggedEvent.id,
       title: draggedEvent.title,
       start,
       end,
@@ -102,6 +104,18 @@ class App extends React.Component {
   }
 
 
+  onSelectEvent(pEvent) {
+    const r = window.confirm("일정을 취소합니다.")
+    if(r === true){
+      this.setState((prevState, props) => {
+        const events = [...prevState.events]
+        const idx = events.indexOf(pEvent)
+        events.splice(idx, 1);
+        return { events };
+      });
+    }
+  }
+
 
   render() {
     const localizer = momentLocalizer(moment)
@@ -110,14 +124,13 @@ class App extends React.Component {
         <h1>일정관리</h1>
         <DragAndDropCalendar
           style={{ height: 800 ,width: '100%' }}
-          popup={true}
-          selectable
+          popup={true}                            //popup 만들어주는거 넘어갓을 때
+          selectable={'ignoreEvents'}                              //선택할수 있게 만들어줌
           localizer={localizer}
           events={this.state.events}
           defaultView={Views.WEEK}
           scrollToTime={new Date()}
-          defaultDate={new Date()}
-          onSelectEvent={event => alert(event.title)}
+          defaultDate={moment().toDate()}
           onSelectSlot={this.handleSelect}
           dayLayoutAlgorithm={this.state.dayLayoutAlgorithm}
 
@@ -130,6 +143,9 @@ class App extends React.Component {
         }
         onDropFromOutside={this.onDropFromOutside}
         handleDragStart={this.handleDragStart}
+
+        onSelectEvent = {event => this.onSelectEvent(event)}
+
         />
       </>
     )
