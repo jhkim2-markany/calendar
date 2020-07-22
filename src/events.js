@@ -3,7 +3,7 @@ export default [
     'title': 'All Day Event very long title',
     'allDay': true,
     'start': new Date(2020, 3, 0),
-    'end': new Date(2020, 3, 1)
+    'end': new Date(2020, 3, 1),
   },
   {
     'title': 'Long Event',
@@ -32,6 +32,6 @@ export default [
     'title': 'Conference',
     'start': new Date(2020, 7, 21),
     'end': new Date(2020, 7, 24),
-    desc: 'Big conference for important people'
+    'desc': 'Big conference for important people'
   }
 ]
