@@ -17,7 +17,6 @@ moment.locale("ko")
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 //-------------------------------------------------
-
 //일정에서 이벤트줌 => 호버하면 될듯?
 function Event({ event }) {
   return (
@@ -39,10 +38,6 @@ function EventAgenda({ event }) {
 }
 
 //----------------------------------------------
-
-
-
-
 class App extends React.Component {
   constructor(...args) {
     super(...args)
@@ -147,25 +142,6 @@ class App extends React.Component {
     }
   }
 
-
-
-  /*
-  handleSelect = ({ start, end }) => {
-    const title = window.prompt('일정을 추가하세요')
-    if (title)
-      this.setState({
-        events: [
-          ...this.state.events,
-          {
-            start,
-            end,
-            title,
-          },
-        ],
-      })
-  }
-*/
-
 //업데이트 만들기
 handleUpdate = ({ start, end }) => {
   const title = window.prompt('일정을 수정하세요')
@@ -181,21 +157,10 @@ handleUpdate = ({ start, end }) => {
       ],
     })
 }
-
-
-
-
-
-
-
-
-
   render() {
     const localizer = momentLocalizer(moment)
-    return (
-      
-      <>
-      
+    return (   
+      <>    
         <h1>일정관리</h1>
         <DragAndDropCalendar
           style={{ height: 800 ,width: '100%' }}
@@ -211,15 +176,18 @@ handleUpdate = ({ start, end }) => {
 
           onEventDrop={this.moveEvent}
           onEventResize={this.resizeEvent}
-          onDragStart={console.log}
-          dragFromOutsideItem={
-          this.state.displayDragItemInCell ? this.dragFromOutsideItem : null
-        }
+        // onDragStart={console.log}                                //콘솔로그 찍히는거 드래그 시작할 떄
+        //   dragFromOutsideItem={
+        //   this.state.displayDragItemInCell ? this.dragFromOutsideItem : null
+        // }
+          
+
+
         onDropFromOutside={this.onDropFromOutside}
         handleDragStart={this.handleDragStart}
         
         
-        tooltipAccessor={this.state.events.start}
+        tooltipAccessor={this.state.events.start}                 //작동안됌
 
 
         onDoubleClickEvent = { event => this.onSelectEvent(event) } //**날자 말고 일정 더블클릭으로 업데이트 해보기
